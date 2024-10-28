@@ -1,47 +1,3 @@
-// import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-// import 'package:flutter/material.dart';
-// import 'package:google_sign/screen/customInfoScreen/customInfoMap.dart';
-//
-// class HomePageScreen extends StatefulWidget {
-//   final String displayName;
-//   final String email;
-//   final String? photoURL;
-//   final String? latitude;
-//   final String? longitude;
-//   const HomePageScreen({super.key, required this.displayName, required this.email, required this.photoURL,required this.latitude,required this.longitude});
-//
-//   @override
-//   State<HomePageScreen> createState() => _HomePageScreenState();
-// }
-//
-// class _HomePageScreenState extends State<HomePageScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.displayName),
-//       ),
-//       body: Center(
-//         child: Column(
-//           children: [
-//             Text(widget.latitude.toString()),
-//             Text(widget.longitude.toString()),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: (){
-//           Navigator.of(context).push(
-//             MaterialPageRoute(
-//               builder: (context) =>  CustomInfoWindows(),
-//             ),
-//           );
-//         },
-//         child: Icon(EvaIcons.arrowheadDown),
-//       ),
-//     );
-//   }
-// }
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -89,12 +45,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
           Placemark place = placemarks[0];
           setState(() {
             address = '''
-${place.street}
-${place.subLocality}
-${place.locality}
-${place.postalCode}
-${place.country}
-''';
+             ${place.street}
+           ${place.subLocality}
+         ${place.locality}
+        ${place.postalCode}
+        ${place.country}
+           ''';
           });
         }
       } else {
@@ -157,7 +113,11 @@ ${place.country}
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const CustomInfoWindows(),
+              builder: (context) =>  CustomInfoWindows(
+                initialLatitude: double.parse(widget.latitude!),
+                initialLongitude: double.parse(widget.longitude!),
+                address: address,
+              ),
             ),
           );
         },
