@@ -41,18 +41,18 @@ class _CustomInfoWindowsState extends State<CustomInfoWindows> {
           _customInfoWindowController.addInfoWindow!(
             Container(
               color: Colors.white,
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Current Location',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  const Text(
+                  SizedBox(height: 4),
+                  Text(
                     'This is your current location.',
                     style: TextStyle(fontSize: 16),
                   ),

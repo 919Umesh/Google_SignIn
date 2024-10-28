@@ -46,10 +46,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
           setState(() {
             address = '''
              ${place.street}
-           ${place.subLocality}
-         ${place.locality}
-        ${place.postalCode}
-        ${place.country}
+             ${place.subLocality}
+             ${place.locality}
+             ${place.postalCode}
+             ${place.country}
            ''';
           });
         }
