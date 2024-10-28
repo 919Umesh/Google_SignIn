@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_sign/screen/splash_screen/splash_screen.dart';
 import 'package:google_sign/services/router/router_name.dart';
@@ -10,14 +6,7 @@ import 'package:page_transition/page_transition.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case splashScreenPath:
-        return PageTransition(
-          type: PageTransitionType.rightToLeft,
-          child:  SplashScreen(),
-        );
-
-
-      default:
+        default:
         return errorRoute();
     }
   }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign/screen/login/user_data.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServices {
@@ -12,17 +13,28 @@ class FirebaseAuthServices {
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
-        final AuthCredential authCredential = GoogleAuthProvider.credential(
-            accessToken: googleSignInAuthentication.accessToken,
-            idToken: googleSignInAuthentication.idToken);
+        final AuthCredential authCredential = GoogleAuthProvider.credential(accessToken: googleSignInAuthentication.accessToken, idToken: googleSignInAuthentication.idToken);
         UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(authCredential);
-        final phoneNumber = userCredential.user?.phoneNumber ?? 'No phone number available';
-        Fluttertoast.showToast(msg: phoneNumber);
-        print(userCredential.user?.email);
+        debugPrint(userCredential.user?.photoURL);
+        debugPrint(userCredential.user?.displayName);
+        debugPrint(userCredential.user?.email);
         await auth.signInWithCredential(authCredential);
+
+        // Create and return a UserData instance with the required fields
+        return UserData(
+          displayName: userCredential.user?.displayName,
+          email: userCredential.user?.email,
+          photoURL: userCredential.user?.photoURL,
+          uid: userCredential.user?.uid,
+          latitude: "",
+          longitude: "",
+        );
       }
     } on FirebaseAuthException catch (e) {
       print(e.toString());
     }
   }
+
+
+
 }

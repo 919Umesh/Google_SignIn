@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign/screen/splash_screen/splash_screen.dart';
+import 'package:google_sign/screen/login/login_screen.dart';
 import 'package:google_sign/services/router/router_helper.dart';
 import 'firebase_options.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:   SplashScreen(),
+      home:   LoginScreen(),
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
