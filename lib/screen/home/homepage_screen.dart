@@ -1,9 +1,7 @@
-
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_sign/screen/customInfoScreen/customInfoMap.dart';
-
 import '../excel_import/excel_import_screen.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -46,13 +44,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
         if (placemarks.isNotEmpty) {
           Placemark place = placemarks[0];
           setState(() {
-            address = '''
-             ${place.street}
-             ${place.subLocality}
-             ${place.locality}
-             ${place.postalCode}
-             ${place.country}
-           ''';
+            address = '''${place.street}
+${place.subLocality}
+${place.locality}
+${place.postalCode}
+${place.country}''';
           });
         }
       } else {
@@ -70,44 +66,118 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text(widget.displayName),
-        actions: [IconButton(onPressed: (){
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ExcelImportScreen(),
-            ),
-          );
-        }, icon: const Icon(EvaIcons.arrowheadDown))],
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(
+          widget.displayName,
+          style: const TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ExcelImportScreen(),
+                ),
+              );
+            },
+            icon: const Icon(EvaIcons.downloadOutline, color: Colors.black87),
+          )
+        ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Display coordinates
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Coordinates: (${widget.latitude}, ${widget.longitude})',
-                style: Theme.of(context).textTheme.bodyLarge,
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(widget.photoURL ??
+                        'https://via.placeholder.com/150'),
+                    backgroundColor: Colors.grey[200],
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    widget.email,
+                    style: const TextStyle(
+                      color: Colors.black54,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
-            // Display address
+            const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Card(
+                elevation: 4,
+                shadowColor: Colors.black26,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Address:',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on, color: Colors.blue),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Location Details',
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 8),
+                      const Divider(height: 20),
+                      Text(
+                        'Coordinates',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Colors.black54,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        '(${widget.latitude}, ${widget.longitude})',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        'Address',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Colors.black54,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
                       Text(
                         address,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          height: 1.5,
+                        ),
                       ),
                     ],
                   ),
@@ -117,11 +187,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) =>  CustomInfoWindows(
+              builder: (context) => CustomInfoWindows(
                 initialLatitude: double.parse(widget.latitude!),
                 initialLongitude: double.parse(widget.longitude!),
                 address: address,
@@ -129,7 +199,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           );
         },
-        child: const Icon(EvaIcons.arrowheadDown),
+        icon: const Icon(EvaIcons.map),
+        label: const Text('View Map'),
+        backgroundColor: Colors.blue,
       ),
     );
   }
