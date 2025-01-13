@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_sign/screen/customInfoScreen/customInfoMap.dart';
 
+import '../excel_import/excel_import_screen.dart';
+
 class HomePageScreen extends StatefulWidget {
   final String displayName;
   final String email;
@@ -70,6 +72,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.displayName),
+        actions: [IconButton(onPressed: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const ExcelImportScreen(),
+            ),
+          );
+        }, icon: const Icon(EvaIcons.arrowheadDown))],
       ),
       body: Center(
         child: Column(
@@ -91,8 +100,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Text(
-                        'Address:',
+                      Text('Address:',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 8),

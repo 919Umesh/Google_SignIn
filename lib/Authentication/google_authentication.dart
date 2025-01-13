@@ -20,7 +20,6 @@ class FirebaseAuthServices {
         debugPrint(userCredential.user?.email);
         await auth.signInWithCredential(authCredential);
 
-        // Create and return a UserData instance with the required fields
         return UserData(
           displayName: userCredential.user?.displayName,
           email: userCredential.user?.email,
