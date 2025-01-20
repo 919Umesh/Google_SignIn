@@ -142,7 +142,7 @@ ${place.country}''';
                           const Icon(Icons.location_on, color: Colors.blue),
                           const SizedBox(width: 10),
                           Text(
-                            'Location Details',
+                            'Location',
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
